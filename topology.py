@@ -27,7 +27,7 @@ def deviceMatchwithID():
     global result
     # Cihaz ID ve isimleri eşleştirilip,
     device_id = req_body['checkedNodes']['device']
-    with open("devices.json", "w", encoding='UTF-8') as f:
+    with open("assets/devices.json", "w", encoding='UTF-8') as f:
         f.write('[')
         for device in device_id:
             member = device['id']
@@ -57,12 +57,12 @@ def storeContainerData():
 
     url = "https://topology.adg.cc.itu.edu.tr:443/maps"
     headers = {"Sec-Ch-Ua": "\";Not A Brand\";v=\"99\", \"Chromium\";v=\"94\"", "X-Xsrf-Token": "eyJpdiI6ImF4cnZ4NldsSkh4dnF3UmJZY3NRalE9PSIsInZhbHVlIjoiRzl5NUluT3FkYjBaOXN1RHkzbCtyVGliYjFrWjhWMzR5WmNsN3QrcVhQUUY3RnlicVlpRmU5eCt0RDJXam1jOCIsIm1hYyI6IjU0NzgzZWExNzgxNjE0NTIxMTc0ZWExMTQyYTk1YjAxMWEwYzA0NWU5ZDM4MjQ1MGI0ZjdkNDViMjc2NWYwNGEifQ==", "X-Csrf-Token": "mPGJND6mhORAEcdCZyuGdjY33VcWleqIiAVqr36k", "Sec-Ch-Ua-Mobile": "?0", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36", "Content-Type": "application/json;charset=UTF-8", "Accept": "application/json, text/plain, */*", "X-Requested-With": "XMLHttpRequest", "Sec-Ch-Ua-Platform": "\"Windows\"", "Origin": "https://topology.adg.cc.itu.edu.tr", "Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Dest": "empty", "Referer": "https://topology.adg.cc.itu.edu.tr/", "Accept-Encoding": "gzip, deflate", "Accept-Language": "en-US,en;q=0.9", "Connection": "close"}
-    json={"query": {"limit": "all", "offset": 0, "order": "asc", "sort": "containerName"}}
-    allData = r.post(url, cookies=session_id, headers=headers, json=json)
+    jsonum = {"query": {"limit": "all", "offset": 0, "order": "asc", "sort": "containerName"}}
+    allData = r.post(url, cookies=session_id, headers=headers, json=jsonum)
     
     x = allData.text
     listio = json.loads(x)['data']
-    with open("database.json", "w", encoding='UTF-8') as f:
+    with open("assets/database.json", "w", encoding='UTF-8') as f:
         f.write('[')
         for k in listio:
             for i in need['container'].values():
@@ -79,17 +79,8 @@ def storeContainerData():
 
 
 def DownOrUp():
-    #all_id_for_check = []
-    #with open("database.json","r") as f:
-    #    json_data = json.load(f)
-    #    for i in json_data: 
-    #        all_id_for_check.append(i['id'])
-    #with open("devices.json","r") as f:
-    #    json_data = json.load(f)
-    #    for i in json_data:
-    #        all_id_for_check.append(i['id'])
     device_and_containers = []
-    with open('devices.json', 'r',encoding='UTF-8') as f:
+    with open('assets/devices.json', 'r',encoding='UTF-8') as f:
         x = json.load(f)
         listem = need['device'].values()
 
@@ -99,7 +90,7 @@ def DownOrUp():
                     if int(i['id']) == int(a['id']):
                         device_and_containers.append(a['Device'])
     
-    with open('database.json','r',encoding='UTF-8') as f:
+    with open('assets/database.json','r',encoding='UTF-8') as f:
         x = json.load(f)
         listem = need['container'].values()
 
@@ -110,9 +101,7 @@ def DownOrUp():
                         device_and_containers.append(a['Place'])
     for idx,i in enumerate(device_and_containers):
         text1 = "Topology'de"
-        text idx
-         {device_and_containers[0]}" + "ve"
 checkStatus()
 deviceMatchwithID()
-#storeContainerData()
+storeContainerData()
 DownOrUp()
