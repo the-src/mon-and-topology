@@ -3,7 +3,6 @@
 from requests.sessions import session
 import requests as r
 import json
-import re
 
 s = r.Session()
 login_url = "https://topology.adg.cc.itu.edu.tr:443/login"
@@ -93,12 +92,44 @@ def DownOrUp():
         listem = need['container'].values()
 
         for i in listem:
-            if i['status'] == 1:
+            if i['status'] == 0:
                 for a in x:
                     if int(i['id']) == int(a['id']):
                         device_and_containers.append(a['Place'])
-    for idx,i in enumerate(device_and_containers):
-        text1 = "Topology'de"
+
+    topology_sonuc = ""
+
+    if len(device_and_containers) == 1:
+        topology_sonuc = f"Topology'de {device_and_containers[0]} düşük durumda."
+
+    elif len(device_and_containers) == 0:
+        topology_sonuc= "Topology'de sorun yok."
+
+    else:
+        bos_list = []
+        var1 = "Topology'de "
+        var2 = " düşük durumda."
+
+        for i in device_and_containers:
+
+            last = int(len(device_and_containers))
+
+            if device_and_containers.index(i) == last-2:
+                var3 = device_and_containers[device_and_containers.index(i)] + " ve "
+                bos_list.append(var3)
+
+            elif device_and_containers.index(i) == last-1:
+                var4 = device_and_containers[device_and_containers.index(i)]
+                bos_list.append(var4)
+
+            else:
+                var5 = device_and_containers[device_and_containers.index(i)] + ", "
+                bos_list.append(var5)
+
+    topology_sonuc = var1+"".join(bos_list)+var2
+    return topology_sonuc
+        
+
 checkStatus()
 deviceMatchwithID()
 storeContainerData()

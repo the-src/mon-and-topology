@@ -28,7 +28,7 @@ def anasayfa():
     driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_lbProblemliIsEkle"]').click()
     sleep(1)
     yazi = driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_tbRutinIs"]')
-    #yazi.send_keys()
+    yazi.send_keys(topology.DownOrUp())
 
 bilgiler()
 login()
