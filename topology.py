@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from os import waitpid
+from requests.sessions import session
 import requests as r
 import json
 import re
-
-from requests.sessions import session
 
 s = r.Session()
 login_url = "https://topology.adg.cc.itu.edu.tr:443/login"
