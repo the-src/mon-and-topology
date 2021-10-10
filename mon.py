@@ -3,8 +3,9 @@ from time import sleep
 from bs4 import BeautifulSoup
 from lxml import etree, html
 import requests
+import os
 
-username = "mon"
+username = os.environ.get('')
 password = "alseup19"
 
 r = requests.get(r'https://mon.cc.itu.edu.tr/NmConsole/#v=Reporting_fullpagepanel_FullPagePanel/p=%7B%22reportClass%22%3A%22Wug_report_devicemaintenancemode_DeviceMaintenanceModeReport%22%2C%22isMainView%22%3Atrue%7D')
