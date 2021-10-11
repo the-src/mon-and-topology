@@ -102,7 +102,7 @@ def DownOrUp():
         listem = need['device'].values()
 
         for i in listem:
-            if i['status'] == 1:
+            if i['status'] == 0:
                 for a in x:
                     if int(i['id']) == int(a['id']):
                         device_and_containers.append(a['Device'])
@@ -150,7 +150,7 @@ def DownOrUp():
                 bos_list.append(var5)
         topology_sonuc = var1+"".join(bos_list)+var2
 
-    print(topology_sonuc)
+    return topology_sonuc
 
 
 checkStatus()
