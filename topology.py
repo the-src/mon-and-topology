@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from requests.sessions import session
 import requests as r
 import json
 import os
@@ -12,13 +11,12 @@ username = os.environ.get('topology_username')
 password = os.environ.get('topology_password')
 
 # Bu kısımda daha sonra atılacak istekler için cookie oluşturulur.
-s = r.Session()
 login_url = "https://topology.adg.cc.itu.edu.tr:443/login"
 header = {"Cache-Control": "max-age=0", "Sec-Ch-Ua": "\"Chromium\";v=\"94\", \"Google Chrome\";v=\"94\", \";Not A Brand\";v=\"99\"", "Sec-Ch-Ua-Mobile": "?0", "Sec-Ch-Ua-Platform": "\"Windows\"", "Upgrade-Insecure-Requests": "1", "Origin": "https://topology.adg.cc.itu.edu.tr", "Content-Type": "application/x-www-form-urlencoded",
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", "Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "navigate", "Sec-Fetch-User": "?1", "Sec-Fetch-Dest": "document", "Referer": "https://topology.adg.cc.itu.edu.tr/login", "Accept-Encoding": "gzip, deflate", "Accept-Language": "tr-TR,tr;q=0.9,de-DE;q=0.8,de;q=0.7,en-GB;q=0.6,en;q=0.5,en-US;q=0.4", "Connection": "close"}
 login_data = {"username": username, "password": password, "login": "1"}
-resp = s.post(login_url, headers=header, data=login_data)
-session_id = s.cookies
+resp = r.post(login_url, headers=header, data=login_data)
+session_id = resp.cookies
 
 
 def checkStatus():
@@ -47,13 +45,16 @@ def deviceMatchwithID():
             x = result.json()[0]['hostname']['hostname']
 
             var1 = x.rfind(".sw.adg.cc.itu.edu.tr")
-            var2 = x.rfind(".itu.edu.tr")
+            var2 = x.rfind(".com")
+            var3 = x.rfind(".itu.edu.tr")
 
             if var1 != -1:
                 x = x[:var1]
+            elif var2 != -1:
+                x = x[:var2]
             else:
-                if var2 != -1:
-                    x = x[:var2]
+                if var3 != -1:
+                    x = x[:var3]
 
             if member != 1563:  # Topolojiye yeni cihaz eklenirse bu kısım değişebilir.
                 f.write(
@@ -101,7 +102,7 @@ def DownOrUp():
         listem = need['device'].values()
 
         for i in listem:
-            if i['status'] == 0:
+            if i['status'] == 1:
                 for a in x:
                     if int(i['id']) == int(a['id']):
                         device_and_containers.append(a['Device'])
@@ -119,7 +120,7 @@ def DownOrUp():
     topology_sonuc = ""
 
     if len(device_and_containers) == 1:
-        topology_sonuc = f"Topology'de {device_and_containers[0]} düşük durumda."
+        topology_sonuc = f'Topology\'de "{device_and_containers[0]}" düşük durumda.'
 
     elif len(device_and_containers) == 0:
         topology_sonuc = "Topology'de sorun yok."
@@ -147,9 +148,9 @@ def DownOrUp():
                 var5 = '"' + device_and_containers[device_and_containers.index(
                     i)] + '"' + ", "
                 bos_list.append(var5)
+        topology_sonuc = var1+"".join(bos_list)+var2
 
-    topology_sonuc = var1+"".join(bos_list)+var2
-    return topology_sonuc
+    print(topology_sonuc)
 
 
 checkStatus()
