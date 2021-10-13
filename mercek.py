@@ -1,7 +1,7 @@
 from selenium import webdriver
 from getpass import getpass
 from time import sleep
-import mon, topology
+import topology, mon
 
 def bilgiler():
     global username, password
@@ -26,9 +26,9 @@ def anasayfa():
     driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_rptRutinIsProblemli_ctl01_lbtDetay"]').click()
     sleep(1)
     driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_lbProblemliIsEkle"]').click()
-    sleep(1)
+    sleep(3)
     yazi = driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_tbRutinIs"]')
-    yazi.send_keys(topology.DownOrUp())
+    yazi.send_keys(topology.DownOrUp() + mon.servers())
 
 bilgiler()
 login()
