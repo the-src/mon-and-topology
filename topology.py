@@ -123,7 +123,7 @@ def DownOrUp():
         topology_sonuc = f'Topology\'de "{device_and_containers[0]}" düşük durumda.'
 
     elif len(device_and_containers) == 0:
-        topology_sonuc = "Topology'de sorun yok."
+        topology_sonuc = "Topology'de düşüklük yok."
 
     else:
         bos_list = []
