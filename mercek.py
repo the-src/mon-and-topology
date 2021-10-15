@@ -1,3 +1,5 @@
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from getpass import getpass
 from time import sleep
@@ -20,6 +22,8 @@ def login():
     girisbuton = driver.find_element_by_xpath('//*[@id="ContentPlaceHolder1_btnLogin"]').click()
 
 def anasayfa():
+    global action
+    action = ActionChains(driver)
     sleep(1)
     driver.find_element_by_xpath('//*[@id="tab-menu"]/div[1]/a[1]').click()
     sleep(1)
@@ -29,6 +33,8 @@ def anasayfa():
     sleep(3)
     yazi = driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_tbRutinIs"]')
     yazi.send_keys(topology.DownOrUp() + ' ' + mon.servers())
+    driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_btRutinIsEkle"]').click()
+    action.key_down(Keys.END).perform()
 
 bilgiler()
 login()
