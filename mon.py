@@ -119,9 +119,9 @@ def servers():
             for l in range(len(dusuklist[dus])):
                 if l == len(dusuklist[dus]) - 1:
                     if dus == list(dusuklist.keys())[-1] and dus != list(dusuklist.keys())[0]:
-                        dusuk_text += f'"{bakimlist[bak][l]}"' + ""
+                        dusuk_text += f'"{dusuklist[dus][l]}"' + ""
                     else:
-                        dusuk_text += f'"{bakimlist[bak][l]}"' + ", "
+                        dusuk_text += f'"{dusuklist[dus][l]}"' + ", "
                 elif l == len(dusuklist[dus]) - 2:
                     dusuk_text += f'"{dusuklist[dus][l]}"' + " ve "
                 else:

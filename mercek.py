@@ -33,8 +33,8 @@ def anasayfa():
     sleep(3)
     yazi = driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_tbRutinIs"]')
     yazi.send_keys(topology.DownOrUp() + ' ' + mon.servers())
-    driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_btRutinIsEkle"]').click()
-    action.key_down(Keys.END).perform()
+    #driver.find_element_by_xpath('//*[@id="ctl00_ContentPlaceHolder1_btRutinIsEkle"]').click()
+    #action.key_down(Keys.END).perform()
 
 bilgiler()
 login()
