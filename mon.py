@@ -3,7 +3,6 @@
 from time import sleep
 import requests as r
 import os
-import json
 
 username = os.environ.get('mon_username')
 password = os.environ.get('mon_password')
@@ -57,23 +56,42 @@ def servers():
 
     bakim_text = 'Mon\'da '
     bakimtextler = []
+    if bakimlist == {}:
+        bakimtextler.append('Mon\'da sorun yok.')
     for bak in bakimlist:
         if len(bakimlist[bak]) == 2:
-            bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}" ve "{bakimlist[bak][1]}"'
+            if bak != list(bakimlist.keys())[0]:
+                if bak != list(bakimlist.keys())[-1]:
+                    bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}" ve "{bakimlist[bak][1]}", '
+                else:
+                    bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}" ve "{bakimlist[bak][1]}"'
+            else:
+                bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}" ve "{bakimlist[bak][1]}"'
         elif len(bakimlist[bak]) == 1:
-            bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}"'
-        elif len(bakimlist[bak]) == 0:
-            bakim_text = 'Mon\'da sorun yok.'
+            if bak != list(bakimlist.keys())[0]:
+                if bak != list(bakimlist.keys())[-1]:
+                    bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}", '
+                else:
+                    bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}"'
+            else:
+                bakim_text += f'"{bak}" altında "{bakimlist[bak][0]}"'
         elif len(bakimlist[bak]) >= 3:
-            bakim_text += f'"{bak}" altında '
+            if bak == list(bakimlist.keys())[0]:
+                bakim_text += f'"{bak}" altında '
+            else:
+                bakim_text += f', "{bak}" altında '
             for l in range(len(bakimlist[bak])):
                 if l == len(bakimlist[bak]) - 1:
-                    bakim_text += f'"{bakimlist[bak][l]}"' + ""
+                    if bak == list(bakimlist.keys())[-1] and bak != list(bakimlist.keys())[0]:
+                        bakim_text += f'"{bakimlist[bak][l]}"' + ""
+                    else:
+                        bakim_text += f'"{bakimlist[bak][l]}"' + ", "
                 elif l == len(bakimlist[bak]) - 2:
                     bakim_text += f'"{bakimlist[bak][l]}"' + " ve "
                 else:
                     bakim_text += f'"{bakimlist[bak][l]}"' + ", "
-        bakim_text += " bakımda."
+        if bak == list(bakimlist.keys())[-1]:
+            bakim_text += " bakımda."
         bakimtextler.append(bakim_text)
 
     dusuk_text = ''
@@ -82,22 +100,35 @@ def servers():
         dusuktextler.append("")
     for dus in dusuklist:
         if len(dusuklist[dus]) == 2:
-            dusuk_text += f', "{dus}" altında "{dusuklist[dus][0]}" ve "{dusuklist[dus][1]}"'
+            if dus != list(dusuklist.keys())[0]:
+                if dus != list(dusuklist.keys())[-1]:
+                    dusuk_text += f' "{dus}" altında "{dusuklist[dus][0]}" ve "{dusuklist[dus][1]}", '
+                else:
+                    dusuk_text += f' "{dus}" altında "{dusuklist[dus][0]}" ve "{dusuklist[dus][1]}"'
+            else:
+                dusuk_text += f' "{dus}" altında "{dusuklist[dus][0]}" ve "{dusuklist[dus][1]}"'
         elif len(dusuklist[dus]) == 1:
-            dusuk_text += f', "{dus}" altında "{dusuklist[dus][0]}"'
-        elif len(dusuklist[dus]) == 0:
-            if bakim_text == 'Mon\'da sorun yok.':
-                continue
+            if dus != list(dusuklist.keys())[0]:
+                if dus != list(dusuklist.keys())[-1]:
+                    dusuk_text += f' "{dus}" altında "{dusuklist[dus][0]}", '
+                else:
+                    dusuk_text += f' "{dus}" altında "{dusuklist[dus][0]}"'
+            else:
+                dusuk_text += f' "{dus}" altında "{dusuklist[dus][0]}"'
         elif len(dusuklist[dus]) >= 3:
-            dusuk_text += f', "{dus}" altında '
+            dusuk_text += f' "{dus}" altında '
             for l in range(len(dusuklist[dus])):
                 if l == len(dusuklist[dus]) - 1:
-                    dusuk_text += f'"{dusuklist[dus][l]}"'
+                    if dus == list(dusuklist.keys())[-1] and dus != list(dusuklist.keys())[0]:
+                        dusuk_text += f'"{bakimlist[bak][l]}"' + ""
+                    else:
+                        dusuk_text += f'"{bakimlist[bak][l]}"' + ", "
                 elif l == len(dusuklist[dus]) - 2:
                     dusuk_text += f'"{dusuklist[dus][l]}"' + " ve "
                 else:
                     dusuk_text += f'"{dusuklist[dus][l]}"' + ", "
-        dusuk_text += " düşük durumda."
+        if dus == list(dusuklist.keys())[-1]:
+            dusuk_text += " düşük durumda."
         dusuktextler.append(dusuk_text)
     mon_sonuc = bakimtextler[0] + dusuktextler[0]
     print(mon_sonuc)
