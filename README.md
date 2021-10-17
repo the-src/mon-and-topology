@@ -8,6 +8,14 @@ Bu repo BİDB tarihinde bir milat niteliği taşıyabilir. Nöbet kavramını ol
 > Üşengeçlik
 > Bide CVye falan yazarız python biliyoz diye. :)
 
+### Kullanmadan önce
+
+[Chrome](https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B4B77B947-B1C7-F937-671D-C61FBD15373E%7D%26lang%3Dtr%26browser%3D4%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26brand%3DFKPE%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe) ve [Python](https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe) yüklü olmalıdır. Üstlerine tıklayarak indirebilirsiniz.
+
+Python indirdikten sonra aşağıdaki komutu açtığınız zip dosyasının içinde çalıştırmanız gerekmektedir.
+
+```pip install requirements.txt```
+
 ### Fonksiyonlar
 
 <!-- Topology sisteminde değişiklik olursa kodda bazı kısımların güncellenmesi gerekebilir. -->
