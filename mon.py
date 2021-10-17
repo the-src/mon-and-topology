@@ -131,7 +131,7 @@ def servers():
             dusuk_text += " düşük durumda."
         dusuktextler.append(dusuk_text)
     mon_sonuc = bakimtextler[0] + dusuktextler[0]
-    print(mon_sonuc)
+    return mon_sonuc
 
 
 servers()
