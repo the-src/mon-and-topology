@@ -6,6 +6,8 @@ Bu repo BİDB tarihinde bir milat niteliği taşıyabilir. Nöbet kavramını ol
 ### Neden yapıyorum?
 
 > Üşengeçlik
+<br>
+
 > Bide CVye falan yazarız python biliyoz diye. :)
 
 ### Kullanmadan önce
