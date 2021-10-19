@@ -18,7 +18,8 @@ login_data = {"username": username, "password": password, "login": "1"}
 resp = r.post(login_url, headers=header, data=login_data)
 session_id = resp.cookies
 
-os.mkdir('assets/')
+if not os.path.exists('assets/'):
+    os.mkdir('assets/')
 
 def checkStatus():
     global req_body, need
