@@ -21,6 +21,7 @@ session_id = resp.cookies
 if not os.path.exists('assets/'):
     os.mkdir('assets/')
 
+
 def checkStatus():
     global req_body, need
     # Cihazların ve Konteynerlerin Up down durumları bakılır.
