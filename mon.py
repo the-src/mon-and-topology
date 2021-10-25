@@ -3,6 +3,7 @@
 import requests as r
 import os
 
+# OLDU CANIM! Verileri cleartext vermicez tabiki, pathe ekleyeceksiniz, ilgili dokümanı bana ulaşırsanız atarım.
 username = os.environ.get('mon_username')
 password = os.environ.get('mon_password')
 
@@ -11,6 +12,7 @@ url = "https://mon.cc.itu.edu.tr:443/NmConsole/User/LoginAjax"
 head = {"Sec-Ch-Ua": "\";Not A Brand\";v=\"99\", \"Chromium\";v=\"94\"", "Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded", "X-Requested-With": "XMLHttpRequest", "Sec-Ch-Ua-Mobile": "?0",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36", "Sec-Ch-Ua-Platform": "\"Windows\"", "Origin": "https://mon.cc.itu.edu.tr", "Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Dest": "empty", "Referer": "https://mon.cc.itu.edu.tr/NmConsole/", "Accept-Encoding": "gzip, deflate", "Accept-Language": "en-US,en;q=0.9"}
 datam = {"username": username, "password": password, "rememberMe": "false"}
+# Mon'a giriş yapılır.
 res = s.post(url, headers=head, data=datam)
 cookie = res.cookies
 
@@ -24,6 +26,7 @@ def servers():
     data = {"ParentGroupId": 0}
     res = r.post(url, headers=header, cookies=cookie, json=data)
     resdata = res.json()
+    # ITUNET altındaki tüm cihazlar çekilir.
     for i in resdata['Items']:
         deviceId = i['DeviceId']
         deviceStatus = i['DeviceStatus']
@@ -31,7 +34,7 @@ def servers():
 
         if deviceStatus == 3:
             continue
-
+        # Bakımdaki veya düşük cihazların üst gruplarına bakılır.
         header = {"Sec-Ch-Ua": "\";Not A Brand\";v=\"99\", \"Chromium\";v=\"94\"", "Accept": "application/json", "X-Requested-With": "XMLHttpRequest", "Sec-Ch-Ua-Mobile": "?0",
                   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36", "Sec-Ch-Ua-Platform": "\"Windows\"", "Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Dest": "empty", "Referer": "https://mon.cc.itu.edu.tr/NmConsole/", "Accept-Encoding": "gzip, deflate", "Accept-Language": "en-US,en;q=0.9"}
         url = "https://mon.cc.itu.edu.tr:443/NmConsole/api/core/DeviceCard?id={}&activeMonitorsCount=1".format(
@@ -52,7 +55,7 @@ def servers():
                 dusuklist[json_data["GroupMembership"][0]["Name"]] = []
             dusuklist[json_data["GroupMembership"]
                       [0]["Name"]].append(deviceName)
-
+    # Rutin mesajı formatlanır, kodun en zor kısmı burası idi benim için.
     bakim_text = 'Mon\'da '
     bakimtextler = []
     if bakimlist == {}:
@@ -92,7 +95,6 @@ def servers():
         if bak == list(bakimlist.keys())[-1]:
             bakim_text += " bakımda."
         bakimtextler.append(bakim_text)
-
     dusuk_text = ''
     dusuktextler = []
     if dusuklist == {}:
