@@ -4,9 +4,11 @@ from selenium import webdriver
 from shutil import rmtree
 from getpass import getpass
 from time import sleep
+import chromedriver_autoinstaller
 import topology
 import mon
 
+chromedriver_autoinstaller.install('.')
 
 def bilgiler():
     global username, password
@@ -20,7 +22,7 @@ def clean():
 
 def login():
     global driver
-    driver = webdriver.Chrome(executable_path="./chromedriver.exe")
+    driver = webdriver.Chrome()
     driver.get("https://mercek.itu.edu.tr")
     sleep(1)
     driver.find_element_by_xpath(
@@ -51,7 +53,6 @@ def anasayfa():
     driver.find_element_by_xpath(
         '//*[@id="ctl00_ContentPlaceHolder1_btRutinIsEkle"]').click()
     action.key_down(Keys.END).perform()
-
 
 bilgiler()
 login()
