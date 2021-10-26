@@ -2,7 +2,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from shutil import rmtree
-from getpass import getpass
+from pwinput import pwinput as pw
 from time import sleep
 import chromedriver_autoinstaller
 import topology
@@ -16,7 +16,7 @@ def bilgiler():
     # Merceğe girmek için gerekli bilgiler bu kısımda kullanıcıdan alınır.
     global username, password
     username = input("Kullanıcı adınız: ")
-    password = getpass("Şifre: ")
+    password = pw("Şifre: ")
 
 
 def clean():
