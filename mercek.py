@@ -5,8 +5,8 @@ from shutil import rmtree
 from pwinput import pwinput as pw
 from time import sleep
 import chromedriver_autoinstaller
-import topology
 import mon
+import topology
 
 # Selenium kütüphanesinin çalışması için gerekli olan driver indirilir.
 chromedriver_autoinstaller.install('.')
@@ -65,9 +65,12 @@ def rutinal():
     driver.find_element_by_xpath(
         '//*[@id="ctl00_ContentPlaceHolder1_btRutinIsEkle"]').click()
     action.key_down(Keys.END).perform()
+    sleep(5)
+    driver.close()
 
 
 bilgiler()
 login()
 rutinal()
 clean()
+quit()
