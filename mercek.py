@@ -12,13 +12,16 @@ import topology
 chromedriver_autoinstaller.install('.')
 
 
-def bilgiler():
+def bilgiler(known_username = None, known_pw = None):
     # Merceğe girmek için gerekli bilgiler bu kısımda kullanıcıdan alınır.
     global username, password
-    username = input("Kullanıcı adınız: ")
-    password = pw("Şifre: ")
-
-
+    if known_username == None and known_pw == None:
+        username = input("Kullanıcı adınız: ")
+        password = pw("Şifre: ")
+    else:
+        username = known_username
+        password = known_pw
+        
 def clean():
     rmtree('__pycache__/')
 
@@ -69,8 +72,9 @@ def rutinal():
     driver.close()
 
 
-bilgiler()
-login()
-rutinal()
-clean()
-quit()
+if __name__ == '__main__':
+    bilgiler()
+    login()
+    rutinal()
+    clean()
+    quit()
