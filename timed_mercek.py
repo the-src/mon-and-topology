@@ -1,16 +1,14 @@
-from subprocess import Popen
 from pwinput import pwinput as pw
 import schedule
 import random
 from mercek import *
 
+# Kullanıcı adı, şifre farz oldu.
 username = input("Kullanıcı adınız: ")
 password = pw("Şifre: ")
 bilgiler(username, password)
 
-a = random.randint(a=10, b=30)
-
-
+# Asıl olayımız
 def kararmercigi():
     login()
     rutinal()
@@ -18,7 +16,11 @@ def kararmercigi():
     quit()
 
 
-schedule.every().hour.at(f'20:{a}').do(kararmercigi)
+# Schedule kütüphanesi ile zamanlama yaptık.
 
 while 1:
-    schedule.run_pending()
+    a = random.randint(a=10, b=30)
+    # Belli olmayak diye de random vakitlerde attık.
+    schedule.every().hour.at(f'20:{a}').do(kararmercigi)
+    if schedule.run_pending() == None:
+        continue
