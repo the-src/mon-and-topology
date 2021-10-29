@@ -17,8 +17,6 @@ def kararmercigi():
     clean()
     quit()
 
-
-schedule.every().hour.at(f'20:{a}').do(kararmercigi)
-
 while 1:
+    schedule.every().hour.at(f'20:{a}').do(kararmercigi)
     schedule.run_pending()
