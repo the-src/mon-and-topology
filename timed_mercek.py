@@ -24,3 +24,4 @@ while 1:
     schedule.every().hour.at(f'20:{a}').do(kararmercigi)
     if schedule.run_pending() == None:
         continue
+    print("[+] Her saat başı 20 geçe rutininiz alınacak.")
