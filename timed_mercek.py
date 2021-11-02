@@ -8,8 +8,8 @@ username = input("Kullanıcı adınız: ")
 password = pw("Şifre: ")
 bilgiler(username, password)
 
-a = random.randint(a=10, b=30)
 
+#schedule.cancel_job(job)
 
 def kararmercigi():
     login()
@@ -17,6 +17,8 @@ def kararmercigi():
     clean()
     quit()
 
-while 1:
+while True:
+    a = random.randint(a=10, b=30)
     schedule.every().hour.at(f'20:{a}').do(kararmercigi)
     schedule.run_pending()
+    continue
