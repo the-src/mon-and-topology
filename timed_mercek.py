@@ -1,15 +1,11 @@
-from subprocess import Popen
 from pwinput import pwinput as pw
-import schedule
+from datetime import datetime
 import random
 from mercek import *
 
 username = input("Kullanıcı adınız: ")
 password = pw("Şifre: ")
 bilgiler(username, password)
-
-
-#schedule.cancel_job(job)
 
 def kararmercigi():
     login()
@@ -18,7 +14,8 @@ def kararmercigi():
     quit()
 
 while True:
-    a = random.randint(a=10, b=30)
-    schedule.every().hour.at(f'20:{a}').do(kararmercigi)
-    schedule.run_pending()
-    continue
+    if datetime.now().minute == 20 and datetime.now().second == 0:
+        sleep(random.randint(a=1,b=5))
+        kararmercigi()
+    else:
+        continue
