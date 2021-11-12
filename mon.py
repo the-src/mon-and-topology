@@ -29,7 +29,7 @@ def servers():
     # ITUNET altındaki tüm cihazlar çekilir.
     for i in resdata['Items']:
         deviceId = i['DeviceId']
-        deviceStatus = i['DeviceStatus']
+        deviceStatus = i['StatusState']
         deviceName = i['DisplayName']
 
         if deviceStatus == 3:
