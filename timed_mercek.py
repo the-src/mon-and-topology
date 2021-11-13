@@ -18,3 +18,4 @@ while True:
         kararmercigi()
     else:
         continue
+            
